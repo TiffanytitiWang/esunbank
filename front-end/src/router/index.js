@@ -1,17 +1,28 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import ArticleList from '../components/ArticleList.vue';
-import ArticleDetail from '../components/ArticleDetail.vue';
+import Register from '../components/Register.vue';
+import Login from '../components/Login.vue';
+import PostList from '../components/PostList.vue';
+import PostDetail from '../components/PostDetail.vue';
+import CreatePost from '../components/CreatePost.vue';
+import EditPost from '../components/EditPost.vue';
 
 Vue.use(VueRouter);
 
 const routes = [
-    { path: '/', component: ArticleList },
-    { path: '/article/:id', name: 'article', component: ArticleDetail }
+  { path: '/', redirect: '/login' },
+  { path: '/register', component: Register },
+  { path: '/login', component: Login },
+  { path: '/Posts', component: PostList },
+  { path: '/Post/:id', component: PostDetail },
+  { path: '/Post/create', component: CreatePost },
+  { path: '/Post/edit/:id', component: EditPost }
 ];
 
 const router = new VueRouter({
-    routes
+  mode: 'history',
+  base: process.env.BASE_URL,
+  routes
 });
 
 export default router;

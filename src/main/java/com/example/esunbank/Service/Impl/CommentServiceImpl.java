@@ -23,7 +23,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public Comment getCommentById(int id) {
-        Comment getCommentById = commentDao.getCommentById(id);
+        Comment getCommentById = commentDao.getCommentByPostId(id);
         return getCommentById;
     }
 

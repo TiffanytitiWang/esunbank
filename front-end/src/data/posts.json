@@ -1,0 +1,5 @@
+[
+  { "id": 1, "title": "文章1", "content": "這是第一篇文章的內容", "author": "user1", "comments": [] },
+  { "id": 2, "title": "文章2", "content": "這是第二篇文章的內容", "author": "user2", "comments": [] },
+  { "id": 3, "title": "文章3", "content": "這是第三篇文章的內容", "author": "user1", "comments": [] }
+]

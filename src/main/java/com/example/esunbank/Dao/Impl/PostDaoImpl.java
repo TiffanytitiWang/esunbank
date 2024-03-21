@@ -24,7 +24,7 @@ public class PostDaoImpl implements PostDao {
     @Override
     public List<Post> getAllPosts() {
 
-        String sqlfind = " SELECT id, user, content, image, created_at FROM post ";
+        String sqlfind = " SELECT id, user_id, content, image, created_at FROM post ";
         List<Post> result = jdbcTemplate.query(sqlfind, new BeanPropertyRowMapper<>(Post.class));
 
         return result;
@@ -33,20 +33,20 @@ public class PostDaoImpl implements PostDao {
     @Override
     public Post getPostById(int id) {
 
-        String sqlfind = " SELECT id, user, content, image, created_at " +
+        String sqlfind = " SELECT id, user_id, content, image, created_at " +
                 " FROM post " +
-                " WHERE id = " + id;
-        Post result = jdbcTemplate.queryForObject(sqlfind, new BeanPropertyRowMapper<>(Post.class));
+                " WHERE id = ?";
+        Post result = jdbcTemplate.queryForObject(sqlfind, new Object[]{id}, new BeanPropertyRowMapper<>(Post.class));
         return result;
     }
 
     @Override
     public String addPost(Post post) {
         String sqlCreat = " insert into post " +
-                "(content, image)"
+                "(user_id, content, image)"
                 + " values (?, ?)";
 
-        int resultCreat = this.jdbcTemplate.update(sqlCreat, post.getContent(),post.getImage());
+        int resultCreat = this.jdbcTemplate.update(sqlCreat, post.getUser().getId(), post.getContent(),post.getImage());
 
         if (resultCreat != 0) {
             System.out.println(resultCreat);
@@ -63,15 +63,15 @@ public class PostDaoImpl implements PostDao {
                 + " content = ?, image = ? "
                 + " WHERE id = ? " ;
 
-        int Updatesuccess = this.jdbcTemplate.update(sqlUpdate, post.getContent(),post.getImage());
+        int Updatesuccess = this.jdbcTemplate.update(sqlUpdate, post.getContent(),post.getImage(), post.getId());
         return Updatesuccess;
 
     }
 
     @Override
     public int deletePost(int id) {
-        String sqlDelete = "DELETE FROM post WHERE id=" + id;
-        int result = jdbcTemplate.update(sqlDelete);
+        String sqlDelete = "DELETE FROM post WHERE id = ?";
+        int result = jdbcTemplate.update(sqlDelete, id);
         return result;
     }
 }

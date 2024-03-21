@@ -23,28 +23,28 @@ public class CommentDaoImpl implements CommentDao {
     @Override
     public List<Comment> getAllComments() {
 
-        String sqlfind = " SELECT id, user, content, image, created_at FROM comment ";
+        String sqlfind = " SELECT id, user_id, content, image, created_at FROM comment ";
         List<Comment> result = jdbcTemplate.query(sqlfind, new BeanPropertyRowMapper<>(Comment.class));
 
         return result;
     }
 
     @Override
-    public Comment getCommentById(int id) {
-        String sqlfind = " SELECT id, user, content, image, created_at " +
+    public Comment getCommentByPostId(int id) {
+        String sqlfind = " SELECT id, user_id, content, image, created_at " +
                 " FROM comment " +
-                " WHERE id = " + id;
-        Comment result = jdbcTemplate.queryForObject(sqlfind, new BeanPropertyRowMapper<>(Comment.class));
+                " WHERE id = ?" ;
+        Comment result = jdbcTemplate.queryForObject(sqlfind, new Object[]{id}, new BeanPropertyRowMapper<>(Comment.class));
         return result;
     }
 
     @Override
     public String addComment(Comment comment) {
         String sqlCreat = " insert into comment " +
-                "(content)"
-                + " values (?)";
+                "(user_id, post_id , content)"
+                + " values ( ?, ?, ? ) ";
 
-        int resultCreat = this.jdbcTemplate.update(sqlCreat, comment.getContent());
+        int resultCreat = this.jdbcTemplate.update(sqlCreat, comment.getUser().getId(), comment.getPost().getId(), comment.getContent());
 
         if (resultCreat != 0) {
             System.out.println(resultCreat);
@@ -61,15 +61,15 @@ public class CommentDaoImpl implements CommentDao {
                 + " content = ? "
                 + " WHERE id = ? " ;
 
-        int Updatesuccess = this.jdbcTemplate.update(sqlUpdate, comment.getContent());
+        int Updatesuccess = this.jdbcTemplate.update(sqlUpdate, comment.getContent(),comment.getId());
         return Updatesuccess;
 
     }
 
     @Override
     public int deleteComment(int id) {
-        String sqlDelete = "DELETE FROM comment WHERE id=" + id;
-        int result = jdbcTemplate.update(sqlDelete);
+        String sqlDelete = "DELETE FROM comment WHERE id = ?";
+        int result = jdbcTemplate.update(sqlDelete,id);
         return result;
     }
 }

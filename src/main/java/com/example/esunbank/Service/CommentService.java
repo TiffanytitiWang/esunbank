@@ -1,7 +1,6 @@
 package com.example.esunbank.Service;
 
 import com.example.esunbank.Model.Comment;
-import com.example.esunbank.Model.Post;
 
 import java.util.List;
 

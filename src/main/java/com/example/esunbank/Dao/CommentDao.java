@@ -10,7 +10,7 @@ public interface CommentDao {
 
     List<Comment> getAllComments();
 
-    Comment getCommentById(int id);
+    Comment getCommentByPostId(int id);
 
     String addComment(Comment comment);
 
