@@ -46,7 +46,7 @@ export default {
   },
   methods: {
     register() {
-      axios.post('http://localhost:8081/api/post', {
+      axios.post('http://localhost:8081/api/register', {
         username: this.username,
         password: this.password
       })
@@ -61,7 +61,7 @@ export default {
     },
     login() {
       axios.post('http://localhost:8081/api/login', {
-        username: this.loginUsername,
+        phone:  this.loginUsername,
         password: this.loginPassword
       })
         .then(response => {

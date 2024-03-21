@@ -4,6 +4,7 @@ package com.example.esunbank.Controller;
 import com.example.esunbank.Model.Comment;
 import com.example.esunbank.Service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,7 +27,7 @@ public class CommentController {
         return comment;
     }
 
-    @RequestMapping(value = { "/comment"}, method = RequestMethod.POST)
+    @RequestMapping(value = { "/comment"}, method = RequestMethod.POST,consumes = MediaType.APPLICATION_JSON_VALUE)
     public String addComment(@RequestBody Comment comment) {
         String result = commentService.addComment(comment);
         return result;
@@ -49,5 +50,4 @@ public class CommentController {
         int result = commentService.deleteComment( id );
         return result;
     }
-
 }

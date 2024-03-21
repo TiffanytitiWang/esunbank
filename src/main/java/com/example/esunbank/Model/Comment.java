@@ -1,6 +1,7 @@
 package com.example.esunbank.Model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,6 +27,7 @@ public class Comment {
         @JsonBackReference
         @JoinColumn(name = "user_id")
         @ManyToOne(cascade = CascadeType.ALL)
+        @JsonIgnore
         private User user;
 
         @Getter
@@ -33,6 +35,7 @@ public class Comment {
         @JsonBackReference
         @JoinColumn(name = "post_id")
         @ManyToOne(cascade = CascadeType.ALL)
+        @JsonIgnore
         private Post post;
 
         @Getter
