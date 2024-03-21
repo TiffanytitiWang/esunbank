@@ -46,7 +46,7 @@ public class PostDaoImpl implements PostDao {
                 "(user_id, content, image)"
                 + " values (?, ?)";
 
-        int resultCreat = this.jdbcTemplate.update(sqlCreat, post.getUser().getId(), post.getContent(),post.getImage());
+        int resultCreat = this.jdbcTemplate.update(sqlCreat,post.getUser().getId(), post.getContent(),post.getImage());
 
         if (resultCreat != 0) {
             System.out.println(resultCreat);
